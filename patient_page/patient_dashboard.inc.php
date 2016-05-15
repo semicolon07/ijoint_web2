@@ -2,8 +2,8 @@
 $sql = 'select count(*) as task_count_side from task
 where pid = %s and side = "%s"';
 
-$right_and_count = $conn->queryRaw(sprintf($sql, $pid, 'r'), true)['task_count_side'];
-$left_and_count = $conn->queryRaw(sprintf($sql, $pid, 'l'), true)['task_count_side'];
+$right_count = $conn->queryRaw(sprintf($sql, $pid, 'r'), true)['task_count_side'];
+$left_count = $conn->queryRaw(sprintf($sql, $pid, 'l'), true)['task_count_side'];
 ?>
 <section class="content-header">
     <h1>
@@ -19,7 +19,7 @@ $left_and_count = $conn->queryRaw(sprintf($sql, $pid, 'l'), true)['task_count_si
 
                 <div class="info-box-content">
                     <span class="info-box-text">Left Hand</span>
-                    <span class="info-box-number"><?php echo $right_and_count; ?>
+                    <span class="info-box-number"><?php echo $left_count; ?>
                         <small> of tasks</small></span>
                 </div>
                 <!-- /.info-box-content -->
@@ -32,7 +32,7 @@ $left_and_count = $conn->queryRaw(sprintf($sql, $pid, 'l'), true)['task_count_si
 
                 <div class="info-box-content">
                     <span class="info-box-text">Right Hand</span>
-                    <span class="info-box-number"><?php echo $left_and_count; ?>
+                    <span class="info-box-number"><?php echo $right_count; ?>
                         <small> of tasks</small></span>
                 </div>
                 <!-- /.info-box-content -->

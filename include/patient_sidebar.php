@@ -27,11 +27,16 @@ $age = date_diff(date_create($patient['dob']), date_create('today'))->y;
 
                 </a>
             </li>
-            <li id="menu-patient-tasks">
-                <a  href="patient.php?pid=<?php echo $patient['pid'];?>&pageId=tasks">
+            <li class="treeview" id="menu-patient-tasks">
+                <a href="#">
                     <i class="fa fa-tasks"></i>
-                    <span data-toggle="tooltip"  title="Tasks">Tasks</span>
+                    <span>Task</span>
+                    <i class="fa fa-angle-left pull-right"></i>
                 </a>
+                <ul class="treeview-menu menu-open" style="display: block;">
+                    <li id="menu-create-task"><a href="patient.php?pid=<?php echo $pid?>&pageId=task_create"><i class="fa fa-plus"></i> Create Task</a></li>
+                    <li id="menu-all-task"><a href="patient.php?pid=<?php echo $pid?>&pageId=tasks"><i class="fa fa-list"></i> All Task</a></li>
+                </ul>
             </li>
             <li id="menu-patient-update">
                 <a  href="patient.php?pid=<?php echo $patient['pid'];?>&pageId=update">
@@ -39,6 +44,7 @@ $age = date_diff(date_create($patient['dob']), date_create('today'))->y;
                     <span data-toggle="tooltip"  title="Update Profile">Update Profile</span>
                 </a>
             </li>
+
 
         </ul>
     </section>

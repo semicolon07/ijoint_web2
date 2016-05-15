@@ -11,10 +11,11 @@ $tasks = $conn->queryRaw($sql_task);
 ?>
 <section class="content-header">
     <h1>
-        Tasks
-        <small>Represent by exercise type split</small>
+        All Task
+        <small>Represent by exercise type</small>
     </h1>
 </section>
+<br/>
 <section class="content">
     <div class="row">
         <div class="col-md-12">
@@ -55,9 +56,6 @@ $tasks = $conn->queryRaw($sql_task);
     </div>
 </section>
 <script type="text/javascript">
-    $(function(){
-
-    });
     function deleteTask(id){
         if (confirm("Are you sure you want to delete this task?"))
             window.location = 'delete_task.php?pid=<?=$pid?>&tid=' + id;

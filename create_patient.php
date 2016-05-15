@@ -112,7 +112,7 @@ if ($cmd == "create") {
 
 
 </head>
-<body class="skin-blue ">
+<body class="skin-blue sidebar-mini">
 <div class="wrapper">
     <?php include "navbar.php" ?>
     <?php include "sidebar.php" ?>

@@ -14,6 +14,8 @@ if($pageId == 'task_edit')
     $pageInclude = 'patient_page/task_edit.inc.php';
 if($pageId == 'update')
     $pageInclude = 'patient_page/patient_update.inc.php';
+if($pageId == 'task_create')
+    $pageInclude = 'patient_page/task_create.inc.php';
 
 
 ?>
@@ -48,7 +50,7 @@ if($pageId == 'update')
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
 
 </head>
-<body class="skin-blue">
+<body class="skin-blue sidebar-mini">
 <div class="wrapper">
     <?php include "navbar.php" ?>
     <?php include "include/patient_sidebar.php" ?>
@@ -87,8 +89,13 @@ if($pageId == 'update')
 <script type="text/javascript">
     var pageId = '<?php echo $pageId?>';
     $(function () {
-        if (pageId == 'tasks' || pageId == 'task_result' || pageId == 'task_edit')
+        if (pageId == 'tasks' || pageId == 'task_result' || pageId == 'task_edit' || pageId == 'task_create'){
             activeMenu('menu-patient-tasks');
+            if(pageId == 'task_create')
+                activeMenu('menu-create-task');
+            if(pageId != 'task_create')
+                activeMenu('menu-all-task');
+        }
         if (pageId == 'update')
             activeMenu('menu-patient-update');
         if (pageId == '')

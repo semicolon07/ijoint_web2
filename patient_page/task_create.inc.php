@@ -9,17 +9,19 @@ $tid = getIsset('tid');
 $cmd = getIsset('__cmd');
 $alert_message = '';
 if($cmd == 'save'){
-    $update_values = array('date'=>getIsset('date'),
+    $values = array('pid'=>getIsset('pid'),
+        'date'=>getIsset('date'),
         'side'=>getIsset('side'),
         'exercise_type'=>getIsset('exercise_type'),
         'target_angle'=>getIsset('target_angle'),
         'number_of_round'=>getIsset('number_of_round'),
+        'status'=>'c',
         'is_abf'=>getIsset('is_abf'));
-    $conn->update('task',$update_values,array('tid'=>$tid));
+    $conn->create('task',$values);
 
     $alert_message = '<div class="alert alert-success alert-dismissible">
                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-               <h4><i class="icon fa fa-check"></i> Update task successfully!</h4>
+               <h4><i class="icon fa fa-check"></i> Create task successfully!</h4>
            </div>';
 }
 
@@ -28,8 +30,7 @@ $task = $conn->select('task', array('tid' => $tid), true);
 
 <section class="content-header">
     <h1>
-        Edit Task
-        <small>(TID : <?php echo $tid; ?>)</small>
+        Create Task
     </h1>
 </section>
 <section class="content">
@@ -53,7 +54,7 @@ $task = $conn->select('task', array('tid' => $tid), true);
                             <label for="inputEmail3" class="col-sm-4 control-label">Date</label>
 
                             <div class="col-sm-8">
-                                <input type="text" name="date" class="form-control" id="datepicker" placeholder="Date" autocomplete="off" value="<?php echo date("Y/m/d", strtotime($task['date']))?>">
+                                <input type="text" name="date" class="form-control" id="datepicker" placeholder="Date" autocomplete="off" value="<?php echo date('Y/m/d', strtotime('+1 day'))?>">
                             </div>
                         </div>
                         <div class="form-group">
@@ -61,8 +62,8 @@ $task = $conn->select('task', array('tid' => $tid), true);
 
                             <div class="col-sm-8">
                                 <select name="side" class="form-control">
-                                    <option value="l"<?php echo ($task['side'] == 'l') ? ' selected' : ''; ?>>Left</option>
-                                    <option value="r"<?php echo ($task['side'] == 'r') ? ' selected' : ''; ?>>Right</option>
+                                    <option value="l">Left</option>
+                                    <option value="r">Right</option>
                                 </select>
                             </div>
                         </div>
@@ -71,11 +72,11 @@ $task = $conn->select('task', array('tid' => $tid), true);
 
                             <div class="col-sm-8">
                                 <select name="exercise_type" class="form-control">
-                                    <option value="f"<?php echo ($task['exercise_type'] == 'f') ? ' selected' : ''; ?>>Flexion</option>
-                                    <option value="h"<?php echo ($task['exercise_type'] == 'h') ? ' selected' : ''; ?>>Horizontal
+                                    <option value="f">Flexion</option>
+                                    <option value="h">Horizontal
                                         Flexion
                                     </option>
-                                    <option value="e"<?php echo ($task['exercise_type'] == 'e') ? ' selected' : ''; ?>>Extension
+                                    <option value="e">Extension
                                     </option>
                                 </select>
                             </div>
@@ -85,7 +86,7 @@ $task = $conn->select('task', array('tid' => $tid), true);
 
                             <div class="col-sm-8">
                                 <input type="number" name="target_angle" class="form-control num" id="date" placeholder="Target Angle"
-                                       autocomplete="off" value="<?php echo $task['target_angle'];?>">
+                                       autocomplete="off" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -93,7 +94,7 @@ $task = $conn->select('task', array('tid' => $tid), true);
 
                             <div class="col-sm-8">
                                 <input type="number" name="number_of_round" class="form-control num" id="date" placeholder="Number of Round"
-                                       autocomplete="off" value="<?php echo $task['number_of_round'];?>">
+                                       autocomplete="off" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -102,7 +103,7 @@ $task = $conn->select('task', array('tid' => $tid), true);
                             <div class="col-sm-2">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="is_abf" id="optionsRadios2" value="y" <?php echo ($task['is_abf']=='y')?' checked="checked"':''?> >
+                                        <input type="radio" name="is_abf" id="optionsRadios2" value="y" >
                                         Yes
                                     </label>
                                 </div>
@@ -110,7 +111,7 @@ $task = $conn->select('task', array('tid' => $tid), true);
                             <div class="col-sm-1">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="is_abf" id="optionsRadios2" value="n" <?php echo ($task['is_abf']=='n')?' checked="checked"':''?>>
+                                        <input type="radio" name="is_abf" id="optionsRadios2" value="n" checked="checked">
                                         No
                                     </label>
                                 </div>
@@ -120,7 +121,7 @@ $task = $conn->select('task', array('tid' => $tid), true);
                     <!-- /.box-body -->
                     <div class="box-footer">
 
-                        <button type="submit" class="btn btn-info pull-right">Update</button>
+                        <button type="submit" class="btn btn-info pull-right">Create</button>
                     </div>
                     <!-- /.box-footer -->
                 </form>
