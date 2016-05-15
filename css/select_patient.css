@@ -1,5 +1,5 @@
 #body .instruction{ text-align: center; font-size: 22px; }
-
+body{ background: #eee; font-family: 'Open Sans', sans-serif; font-size: 14px; }
 #patient_list{ margin: 0px auto;  text-align: center}
 #patient_list .element{
 	display: inline-block;

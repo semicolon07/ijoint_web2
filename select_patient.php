@@ -123,7 +123,7 @@ $total_num = sizeof($select_all);
 
                             $stat = number_format($num_complete_task * 100 / $num_all_task);
                             ?>
-                            <a href="tasks.php?pid=<?= $pid ?>" class="element ">
+                            <a href="patient.php?pid=<?= $pid ?>" class="element ">
                                 <div class="patient_info">
                                     <div class="patient_gender">
                                         <img src="images/icon-<?= $gender ?>.png" class="circle"/>
