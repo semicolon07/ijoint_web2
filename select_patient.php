@@ -59,7 +59,7 @@ $total_num = sizeof($select_all);
 
 
 </head>
-<body class="skin-blue sidebar-collapse sidebar-mini">
+<body class="skin-blue ">
 <div class="wrapper">
     <?php include "navbar.php" ?>
     <?php include "sidebar.php" ?>

@@ -112,7 +112,7 @@ if ($cmd == "create") {
 
 
 </head>
-<body class="skin-blue sidebar-collapse sidebar-mini">
+<body class="skin-blue ">
 <div class="wrapper">
     <?php include "navbar.php" ?>
     <?php include "sidebar.php" ?>
@@ -320,8 +320,17 @@ if ($cmd == "create") {
         with (document.form_data) {
             if (chk()) {
                 if (confirm_password.value == password.value) {
-                    __cmd.value = "create";
-                    submit();
+
+                    var a = new Date(dob.value);
+                    var b = new Date();
+                    if(fn_DateCompare(a,b) != 1){
+                        __cmd.value = "create";
+                        submit();
+                    }else{
+                        alert("Birth date is more than date Now!!");
+                    }
+
+
                 } else {
                     alert("รหัสผ่านไม่ตรงกัน กรุณากรอกใหม่!!");
                     confirm_password.onfocus = true;
@@ -343,6 +352,23 @@ if ($cmd == "create") {
             }
         }
         return false;
+    }
+
+    function fn_DateCompare(DateA, DateB) {
+        var a = new Date(DateA);
+        var b = new Date(DateB);
+
+        var msDateA = Date.UTC(a.getFullYear(), a.getMonth()+1, a.getDate());
+        var msDateB = Date.UTC(b.getFullYear(), b.getMonth()+1, b.getDate());
+
+        if (parseFloat(msDateA) < parseFloat(msDateB))
+            return -1;  // less than
+        else if (parseFloat(msDateA) == parseFloat(msDateB))
+            return 0;  // equal
+        else if (parseFloat(msDateA) > parseFloat(msDateB))
+            return 1;  // greater than
+        else
+            return null;  // error
     }
 
 </script>
