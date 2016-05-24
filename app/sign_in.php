@@ -9,22 +9,14 @@ $password = md5($_POST['password']);
 //$password = md5('1234');
 
 $sql = "select * from patient where username = '" . $username . "' and password = '" . $password . "'";
-$query = mysqli_query($conn,$sql);
-$nr = mysqli_num_rows($query);
-
-if ($nr > 0){
-	$result['status'] = true;
-
-	$query = mysqli_query($conn,$sql);
-	while ($row = mysqli_fetch_array($query)){
-		$result['pid'] = $row['pid'];
-		$result['pFirstName'] = $row['firstname'];
-		$result['pLastName'] = $row['lastname'];
-	}
-}
-else{
-	$result['status'] = false;
+$row = $conn->queryRaw($sql, true);
+if ($row != null) {
+    $result['status'] = true;
+    $result['pid'] = $row['pid'];
+    $result['pFirstName'] = $row['firstname'];
+    $result['pLastName'] = $row['lastname'];
+} else {
+    $result['status'] = false;
 }
 
 echo json_encode($result);
-?>

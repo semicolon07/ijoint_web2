@@ -11,51 +11,30 @@ $tasks = $json->result;
 $tid = $tasks[0]->tid;
 
 $sql = "select * from task where tid = " . $tid;
-$query = mysqli_query($conn, $sql);
-while ($row = mysqli_fetch_array($query)){
-	$status = $row['status'];
-}
+$row = $conn->queryRaw($sql,true);
 
-if ($status != "d"){
+if ($row['status'] != "d"){
 	foreach ($tasks as $key => $task){
-		$time = $task->time;
-		$angle = $task->angle;
-		$rawAngle = $task->rawAngle;
-		$azimuth = $task->azimuth;
-		$pitch = $task->pitch;
-		$roll = $task->roll;
-		$accX = $task->accX;
-		$accY = $task->accY;
-		$accZ = $task->accZ;
-		$gyroX = $task->gyroX;
-		$gyroY = $task->gyroY;
-		$gyroZ = $task->gyroZ;
-		$magX = $task->magX;
-		$magY = $task->magY;
-		$magZ = $task->magZ;
+		$value = array(
+			"time"=>$task->time
+			,"angle"=>$task->angle
+			,"rawAngle"=>$task->rawAngle
+			,"azimuth"=>$task->azimuth
+			,"pitch"=>$task->pitch
+			,"roll"=>$task->roll
+			,"accX"=>$task->accX
+			,"accY"=>$task->accY
+			,"accZ"=>$task->accZ
+			,"gyroX"=>$task->gyroX
+			,"gyroY"=>$task->gyroY
+			,"gyroZ"=>$task->gyroZ
+			,"magX"=>$task->magX
+			,"magY"=>$task->magY
+			,"magZ"=>$task->magZ
+		);
 
-		$sql = "insert into result_item (tid, time, angle, rawAngle, azimuth, pitch, roll, accX, accY, accZ, gyroX, gyroY, gyroZ, magX, magY, magZ) values (";
-		$sql .= "'" . $tid . "'";
-		$sql .= ",'" . $time . "'";
-		$sql .= ",'" . $angle . "'";
-		$sql .= ",'" . $rawAngle . "'";
-		$sql .= ",'" . $azimuth . "'";
-		$sql .= ",'" . $pitch . "'";
-		$sql .= ",'" . $roll . "'";
-		$sql .= ",'" . $accX . "'";
-		$sql .= ",'" . $accY . "'";
-		$sql .= ",'" . $accZ . "'";
-		$sql .= ",'" . $gyroX . "'";
-		$sql .= ",'" . $gyroY . "'";
-		$sql .= ",'" . $gyroZ . "'";
-		$sql .= ",'" . $magX . "'";
-		$sql .= ",'" . $magY . "'";
-		$sql .= ",'" . $magZ . "'";
-		$sql .= ")";
-		mysqli_query($conn, $sql);
+	$conn->create("result_item",$value);
 	}
 
-	$sql = "update task set status = 'd', perform_datetime = '" . $perform_datetime . "', score = '" . $score . "' where tid = " . $tid;
-	mysqli_query($conn, $sql);
+	$conn->update("task",array("status"=>"d","perform_datetime"=>$perform_datetime,"score"=>$score),array("tid"=>$tid));
 }
-?>

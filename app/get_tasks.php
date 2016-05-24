@@ -6,8 +6,8 @@ include('../dbconnect.php');
 $pid = $_POST['pid'];
 
 $sql = "select * from task where pid = $pid and status IN ('c', 'e', 's')";
-$query = mysqli_query($conn, $sql);
-while ($row = mysqli_fetch_array($query)){
+$query = $conn->queryRaw($sql);
+foreach($query as $row){
 	$task['tid'] = $row['tid'];
 	$task['pid'] = $row['pid'];
 	$task['date'] = $row['date'];
@@ -20,6 +20,4 @@ while ($row = mysqli_fetch_array($query)){
 
 	$tasks[] = $task;
 }
-
 echo json_encode($tasks);
-?>
